@@ -8,7 +8,8 @@ i also saw that the tubearchivist project paywalled real time channel notificati
 
 ## why cant you just fix the bug in tubearchivist?
 
-not a fan of the codebase 
+not a fan of the codebase
+
 this is somehow easier 
 
 ## usage 
