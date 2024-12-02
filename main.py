@@ -19,7 +19,7 @@ def collect_channels(url: str, token: str) -> list[str]:
     while last_page_reached:
         request = requests.get(f"{url}{CHANNEL_LIST_PATH}?page={page}", headers=headers)
         if request.status_code != 200:
-            raise Exception(f"Request failed with status code {request.status_code}")
+            raise Exception(f"Request failed with status code {request.status_code} -- {request.text}")
 
         if len(content := request.json()["data"]) != 0:
             channels.extend(content)
