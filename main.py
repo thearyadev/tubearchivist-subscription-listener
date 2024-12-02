@@ -116,7 +116,6 @@ def scan(url: str, token: str, youtube_token: str, autostart: bool):
             add_to_queue(url, token, video, autostart=autostart)
 
 
-
 def main() -> int:
     logging.basicConfig(level=logging.INFO)
     parser = argparse.ArgumentParser(
@@ -134,19 +133,24 @@ def main() -> int:
         "-yt", "--youtube-token", type=str, required=True, help="Youtube API token"
     )
 
-    parser.add_argument("-r", "--repeat", type=int, default=60, help="number of refreshes per day")
-    parser.add_argument("-a", "--autostart", type=bool , help="autostart downloads")
+    parser.add_argument(
+        "-r", "--repeat", type=int, default=60, help="number of refreshes per day"
+    )
+    parser.add_argument("-a", "--autostart", type=bool, help="autostart downloads")
 
     args = parser.parse_args()
 
-    sleep_time = (24 * 60 * 60) // args.repeat # calculates the interval based on num repeats per day
+    sleep_time = (
+        24 * 60 * 60
+    ) // args.repeat  # calculates the interval based on num repeats per day
 
     logging.info(f"Sleeping for {sleep_time} seconds. {args.repeat} scans per 24 hours")
     logging.info(f"Autostart: {args.autostart}")
-    
+
     while True:
         scan(args.url, args.token, args.youtube_token, args.autostart)
         time.sleep(sleep_time)
+
 
 if __name__ == "__main__":
     raise SystemExit(main())
