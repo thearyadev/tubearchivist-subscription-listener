@@ -30,4 +30,4 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: thearyadev0/tubearchivist-pruner:latest,thearyadev0/tubearchivist-pruner:${{ env.CLEAN_TAG_NAME }}
+          tags: thearyadev0/tubearchivist-subscription-listener:latest,thearyadev0/tubearchivist-subscription-listener:${{ env.CLEAN_TAG_NAME }}
