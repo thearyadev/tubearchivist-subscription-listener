@@ -7,4 +7,4 @@ COPY requirements.txt .
 
 RUN python3 -m pip install -r requirements.txt
 
-CMD python main.py -u "$TUBEARCHIVIST_URL" -t "$API_TOKEN" -r "$REPEAT" -yt "$YOUTUBE_TOKEN" -a "$AUTOSTART"
+CMD python main.py -u "$TUBEARCHIVIST_URL" -t "$API_TOKEN" -r "$REPEAT" -yt "$YOUTUBE_TOKEN" -a "$AUTOSTART" -r "$REPEAT"
