@@ -135,7 +135,8 @@ def main() -> int:
     )
 
     parser.add_argument("-r", "--repeat", type=int, default=60, help="number of refreshes per day")
-    parser.add_argument("-a", "--autostart", action="store_true", help="autostart downloads")
+    parser.add_argument("-a", "--autostart", type=bool , help="autostart downloads")
+
     args = parser.parse_args()
 
     sleep_time = (24 * 60 * 60) // args.repeat # calculates the interval based on num repeats per day
