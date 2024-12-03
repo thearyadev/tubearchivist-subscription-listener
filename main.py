@@ -129,7 +129,7 @@ def main() -> int:
     logging.basicConfig(level=logging.INFO)
     parser = argparse.ArgumentParser(
         prog="tubearchivist-subscription-listener",
-        description="this script will query the youtube api to get the latest videos from all channels you are subscribed to in your Tubearchvist instance. It will then add those videos to the queue. this script runs endlessly.\n\n WARNING: the youtube data api has a quota of 10000 units. Each run costs 2 units per channel. Each run will process every channel. Select an interval that does not exhaust your quota.\n\n Example: 100 channels * 2 * 50 times per day = 10000\n This is approximately twice per hour (or every 30 minutes) for 100 channels\n\nYou might want to request a quota increase on GCP.",
+        description="this script will query the youtube api to get the latest videos from all channels you are subscribed to in your Tubearchvist instance. It will then add those videos to the queue. this script runs endlessly.\n\n WARNING: the youtube data api has a quota of 10000 units. Each run costs 1 units per channel. Each run will process every channel. Select an interval that does not exhaust your quota.\n\n Example: 100 channels * 1 * 50 times per day = 5000\n This is approximately twice per hour (or every 30 minutes) for 100 channels\n\nYou might want to request a quota increase on GCP.",
     )
 
     parser.add_argument(

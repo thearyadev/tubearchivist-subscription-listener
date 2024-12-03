@@ -8,6 +8,6 @@ services:
             AUTOSTART: "True" # or False
             REPEAT: "50" # times to repeat in one day
 
-            ## each channel uses 2 quota units per scan. if i have 100 channels * 2 units * 50 scans per day, it will use 10000 quota units. 
+            ## each channel uses 1 quota units per scan. if i have 100 channels * 1 units * 50 scans per day, it will use 5000 quota units. 
             #
             # the youtube api provides you with 10000 units per day. You may be able to request more
