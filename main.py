@@ -10,6 +10,8 @@ DOWNLOADS_CHECK_PATH = "/api/download/%s"
 VIDEOS_CHECK_PATH = "/api/video/%s"
 ADD_TO_QUEUE_PATH = "/api/download/"
 
+channel_playlist_cache: dict[str, str] = dict()
+
 
 def collect_channels(url: str, token: str) -> list[str]:
     headers = {"Authorization": f"Token {token}"}
@@ -19,7 +21,9 @@ def collect_channels(url: str, token: str) -> list[str]:
     while last_page_reached:
         request = requests.get(f"{url}{CHANNEL_LIST_PATH}?page={page}", headers=headers)
         if request.status_code != 200:
-            raise Exception(f"Request failed with status code {request.status_code} -- {request.text}")
+            raise Exception(
+                f"Request failed with status code {request.status_code} -- {request.text}"
+            )
 
         if len(content := request.json()["data"]) != 0:
             channels.extend(content)
@@ -38,11 +42,16 @@ def get_latest_videos(
         "youtube", "v3", developerKey=youtube_token
     )
 
-    request = youtube.channels().list(part="contentDetails", id=channel_id)
-    response = request.execute()
-    playlist_id: str = response["items"][0]["contentDetails"]["relatedPlaylists"][
-        "uploads"
-    ].replace("UU", "UULF")
+    playlist_id = channel_playlist_cache.get(channel_id)
+    if playlist_id is None:
+        logging.info(f"{channel_id} is not cached. Fetching playlist id")
+        request = youtube.channels().list(part="contentDetails", id=channel_id)
+        response = request.execute()
+        playlist_id = response["items"][0]["contentDetails"]["relatedPlaylists"][
+            "uploads"
+        ].replace("UU", "UULF")
+        channel_playlist_cache[channel_id] = playlist_id
+
     request = youtube.playlistItems().list(
         part="snippet,contentDetails", maxResults=max_result, playlistId=playlist_id
     )
